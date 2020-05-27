@@ -583,7 +583,7 @@ String convertFramesToTimeString(int frames){	// Requirement #4
 
 color getTimeTextColor(int frames){				// Requirement #5
 	int sec = frames / 60;
-	println(sec);
+	
 	int colors = 0;
 	if(sec >= 120){
 		colors = #00ffff;
