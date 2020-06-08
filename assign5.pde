@@ -469,7 +469,7 @@ void draw() {
 
 		// Requirement #6:
 		//   Call drawCaution() to draw caution sign
-
+		drawCaution();
 		popMatrix();
 
 		// Depth UI
@@ -576,8 +576,8 @@ boolean isHit(float ax, float ay, float aw, float ah, float bx, float by, float 
 
 String convertFramesToTimeString(int frames){	// Requirement #4
 
-	String min = nf(floor(frames / 3600) , 2);
-	String ssec = nf(floor((frames / 60) % 60) , 2);
+	String min = nf(frames / 3600 , 2);
+	String ssec = nf((frames / 60) % 60 , 2);
 	return  min+":"+ssec;
 }
 
@@ -606,7 +606,12 @@ int getEnemyIndexByRow(int row){				// Requirement #6
 		// - If there's a soldier in that row, return that soldier's index in soldierX/soldierY
 		// (for example, if soldierY[3] is in that row, return 3)
 		// - Return -1 if there's no soldier in that row
-
+  for( int i=0 ; i<6 ; i++ ){
+    //println( soldierY[i] / SOIL_SIZE,row );
+    if( ( soldierY[i] / SOIL_SIZE ) == row ){
+      return i;
+    }
+  }     
 	return -1;
 }
 
@@ -618,6 +623,11 @@ void drawCaution(){								// Requirement #6
 		// - Use playerRow to calculate the row below the screen
 		// - Use the returned value from int getEnemyIndexByRow(int row) to get the soldier's position from soldierX/soldierY arrays
 		// - Don't draw anything if int getEnemyIndexByRow(int row) returns -1
+	int a = getEnemyIndexByRow( playerRow+5 );
+    //println(a);
+    if( a != -1 ){
+      image( caution , soldierX[a] , soldierY[a]-SOIL_SIZE );
+    }
 }
 
 void keyPressed(){
